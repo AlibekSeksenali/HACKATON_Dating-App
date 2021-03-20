@@ -1,0 +1,47 @@
+.btn-pink {
+  color: white;
+  line-height: 10px;
+  transition: all 0.3s ease 0s;
+}
+
+.nav-link:hover{
+  color: white;
+  background-color: #ec407a;
+}
+
+.btn-outline-pink{
+  border-radius: 40px;
+}
+
+.h2-title{
+  color: #db406d;
+}
+
+.nav-link-custom{
+  color: white;
+  background-color:#ec407a;
+  border-radius: 40px;
+ }
+
+.nav-link{
+  color: black;
+}
+
+
+.page-footer{
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.custom-container{
+  min-height:75%;
+}
+
+.jumbotron{
+  /*background: #dd3e74;*/
+  background: #1c2331;
+}
+
+.custom-image-logo{
+  height: 50px;
+}

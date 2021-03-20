@@ -1,0 +1,43 @@
+
+.page-link{
+  color: pink;
+}
+
+.custom-select{
+  width: 150px;
+}
+
+.custom-search{
+  width: 300px;
+}
+
+.btn-custom{
+  background: #fe4182;
+  color: white;
+}
+
+.custom-option:hover{
+  background: #fe4182;
+}
+
+.example-full-width{
+  width: 250px;
+}
+
+.custom-width{
+  width: 50px;
+}
+
+.custom-spinner{
+  color: #e6407d;
+  width: 5rem;
+  height: 5rem;
+}
+
+.card:hover{
+  transform: scale(1.05, 1.05);
+}
+
+.card {
+  transition: 0.6s;
+}

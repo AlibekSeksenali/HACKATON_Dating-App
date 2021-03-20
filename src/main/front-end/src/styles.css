@@ -1,0 +1,41 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~mdbootstrap/css/mdb.min.css";
+@import "~font-awesome/css/font-awesome.min.css";
+@import "~bootstrap-select/dist/css/bootstrap-select.min.css";
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+.Site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.Site-content {
+  flex: 1;
+}
+
+html{
+  height: 100%;
+}
+
+body {
+  margin:0;
+  padding:0;
+  height:100%;
+  background-color: #F0F0F0;
+}
+
+.container {
+  /*min-height:100%;*/
+  position:relative;
+  /*background-color: white;*/
+}
+
+.col-background{
+  background-color: white;
+}
+
+.col-background-2{
+  background-color: grey;
+}

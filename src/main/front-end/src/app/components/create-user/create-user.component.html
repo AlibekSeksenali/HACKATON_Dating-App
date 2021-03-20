@@ -1,0 +1,113 @@
+<div class="container col-background shadow-lg">
+
+  <br><br>
+
+  <div class="row">
+
+      <!--<div class="col-sm-6 col-background">
+
+        <div class="container">
+          <img [src]="pinkHeartPath" class="mx-auto d-block custom-image" alt="Pink Heart">
+        </div>
+
+      </div>-->
+
+      <!--<div class="col-sm-6 col-background">-->
+
+        <br>
+
+        <div class="signup-form">
+          <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+
+              <h2>Sign Up</h2>
+              <p>It's free and only takes a minute.</p>
+              <hr>
+
+              <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-danger">
+                <p class="text-center">Sign Up failed!</p>
+                <div *ngFor="let error of errorMessage.split('-'), let i = index">
+                  <p>{{i+1}}. {{error}}</p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input type="text" class="form-control" name="username" placeholder="Username" [(ngModel)]="form.username" #username="ngModel" required minlength="4" maxlength="20"/>
+                <div class="alert alert-danger" *ngIf="f.submitted && username.invalid">
+                  <div *ngIf="username.errors.required">Username is required</div>
+                  <div *ngIf="username.errors.minlength">Username must be at least 4 characters</div>
+                  <div *ngIf="username.errors.maxlength">Username maximum length is 20 characters</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="username" placeholder="First Name" [(ngModel)]="form.name" #name="ngModel" required minlength="3" maxlength="20"/>
+                <div class="alert alert-danger" *ngIf="f.submitted && name.invalid">
+                  <div *ngIf="name.errors.required">First Name is required</div>
+                  <div *ngIf="name.errors.minlength">Name must be at least 3 characters</div>
+                  <div *ngIf="name.errors.maxlength">Name maximum length is 20 characters</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="email" placeholder="Email Address" [(ngModel)]="form.email" #email="ngModel" required email maxlength="30"/>
+                <div class="alert alert-danger" *ngIf="f.submitted && email.invalid">
+                  <div *ngIf="email.errors.required">Email is required</div>
+                  <div *ngIf="email.errors.email">Email must be a valid email address</div>
+                  <div *ngIf="email.errors.maxlength">Email maximum length is 30 characters</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="form.password" #password="ngModel" required minlength="6" maxlength="25" />
+                <div class="alert alert-danger" *ngIf="f.submitted && password.invalid">
+                  <div *ngIf="password.errors.required">Password is required</div>
+                  <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+                  <div *ngIf="password.errors.maxlength">Password maximum length is 25 characters</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" name="repeatedPassword" placeholder="Confirm Password" [(ngModel)]="form.repeatedPassword" #repeatedPassword="ngModel" required minlength="6" maxlength="25" />
+                <div class="alert alert-danger" *ngIf="f.submitted && repeatedPassword.invalid">
+                  <div *ngIf="repeatedPassword.errors.required">Password is required</div>
+                  <div *ngIf="repeatedPassword.errors.minlength">Password must be at least 6 characters</div>
+                  <div *ngIf="repeatedPassword.errors.maxlength">Password maximum length is 25 characters</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="city" placeholder="City" [(ngModel)]="form.city" #city="ngModel" required minlength="4" maxlength="35"/>
+                <div class="alert alert-danger" *ngIf="f.submitted && city.invalid">
+                  <div *ngIf="city.errors.required">City is required</div>
+                  <div *ngIf="city.errors.minlength">City must be at least 4 characters</div>
+                  <div *ngIf="city.errors.maxlength">City maximum length is 20 characters</div>
+                </div>
+              </div>
+
+              <mat-form-field>
+                <mat-label>Gender</mat-label>
+                <mat-select name="gender" [(ngModel)]="form.gender" required>
+                  <mat-option [value]="1" value="MALE">Male</mat-option>
+                  <mat-option [value]="2" value="FEMALE">Female</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width" color="danger">
+                <mat-label>Date of birth</mat-label>
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="dd/mm/yyyy"  [(ngModel)]="form.dateOfBirth" name="dateOfBirth" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle >
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+
+              <div class="form-group">
+                <input type="submit" class="btn btn-primary btn-block btn-lg" value="Sign Up">
+              </div>
+
+          </form>
+          <div class="text-center">Already have an account? <a routerLink="/login">Login here</a></div>
+        </div>
+
+        <br>
+
+      <!--</div>end of col-sm-6 -->
+
+  </div><!-- end of row -->
+
+  <br><br>
+
+</div><!-- end of container main -->

@@ -1,0 +1,103 @@
+
+  <div class="row">
+
+    <!--<div class="col">
+
+      <img [src]="logo" class="mx-auto d-block custom-image-logo" alt="Match Zone">
+
+    </div>-->
+
+    <div class="col-7">
+
+      <ul class="nav nav-tabs nav-justified bg-white shadow fixed-top">
+        <li class="nav-item">
+          <a routerLink="home"><img [src]="logo" class="mx-auto d-block custom-image-logo" alt="Match Zone"></a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="home" class="nav-link" routerLinkActive="active">HOME</a>
+        </li>
+        <li class="nav-item">
+          <a href="/coming-soon" class="nav-link" routerLink="coming-soon">STORY</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="coming-soon">ABOUT</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="coming-soon">CONTACT</a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn; else loggedOut">
+          <div class="dropdown">
+            <button class="nav-link nav-link-custom dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-user"></i>
+              {{username}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item fa" (click)="userDetails(username)"><mat-icon class="fa fa-user"></mat-icon> Profile</a>
+              <a class="dropdown-item fas" routerLink="setting"><mat-icon class="fa fa-cog"></mat-icon > Settings</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item fas" (click)="logOut()"><mat-icon class="fa fa-sign-out"></mat-icon > Log out</a>
+            </div>
+          </div>
+        </li>
+        <ng-template #loggedOut>
+        <li class="nav-item">
+          <a class="nav-link nav-link-custom" routerLink="login"><i class="fa fa-user mr-1"></i> SIGN IN</a>
+        </li>
+        </ng-template>
+      </ul>
+
+    </div><!-- end of col-sm-6 -->
+
+    <div class="col">
+
+    </div>
+
+  </div><!-- end of row -->
+
+
+    <div class="jumbotron text-center">
+      <h2 class="text-center h2-title"><strong>Find your soulmate</strong></h2>
+    </div>
+
+  <br>
+
+<div class="custom-container">
+  <router-outlet></router-outlet>
+</div>
+
+
+<footer class="page-footer font-small unique-color-dark pt-4">
+
+    <ul class="list-unstyled list-inline text-center py-2" *ngIf="!isLoggedIn; else loggedIn">
+      <li class="list-inline-item">
+        <h5 class="mb-1">Register for free</h5>
+      </li>
+      <li class="list-inline-item">
+        <a routerLink="register"  class="btn btn-outline-pink btn-rounded">Sign up!</a>
+      </li>
+    </ul>
+    <ng-template #loggedIn>
+      <ul class="list-unstyled list-inline text-center py-2">
+        <li>
+          <h5 class="mb-1">Welcome</h5>
+        </li>
+        <li>
+          <h6 class="mb-1">Find you match today !</h6>
+        </li>
+      </ul>
+    </ng-template>
+
+  <h5>Attributions</h5>
+  <a href="https://www.pexels.com/pl-pl/zdjecie/bokeh-broda-daktyl-data-842546/">Zdjęcie autorstwa Andrea Piacquadio z Pexels</a>
+  <br>
+  <a href="https://www.freepngimg.com/png/37323-pink-heart">Pink Heart FreePNGImg.com</a>
+  <br>
+  <a href='https://pngtree.com/so/sprawa'>sprawa png from pngtree.com</a>
+  <br>
+  <a href="https://www.freepik.com/free-photos-vectors/heart">Heart vector created by rawpixel.com - www.freepik.com</a>
+
+  <div class="footer-copyright text-center py-3">© 2019 Copyright:
+    <a href="https://www.facebook.com/pawel.gonera"> Paweł Gónera</a>
+  </div>
+
+</footer>

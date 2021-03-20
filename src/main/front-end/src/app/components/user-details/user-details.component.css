@@ -1,0 +1,126 @@
+/*.card-columns{
+  top-margin: 100px;
+}*/
+
+.card:hover{
+  transform: scale(1.05, 1.05);
+}
+
+.card {
+  transition: 0.6s;
+}
+
+.edit-input {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.inline-custom{
+  display: inline-block;
+}
+
+.btn-edit-comm {
+  margin-left: 280px;
+}
+
+.btn-delete-comm {
+  margin-left: 30px;
+}
+
+.btn-edit-photo {
+  font-family: Arial, Helvetica, sans-serif;
+  margin-left: 450px;
+  color: green;
+}
+
+.btn-delete-photo {
+  margin-left: 60px;
+  color: red;
+}
+
+.avatar {
+  margin-top: 10px;
+  margin-left: 0px;
+  width: 200px;
+  height: 200px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.img-radius {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+}
+
+.avatar-radius {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
+
+.btn-pink {
+  margin-left: 540px;
+  min-width: 150px;
+}
+
+.btn-pink-edit {
+  background: #e6407d;
+  margin-left: 200px;
+  min-width: 50px;
+}
+
+.star-rating {
+  line-height:32px;
+  font-size:3.0em;
+  color:gold;
+}
+
+.star-size-0{
+  font-size: 2.0rem;
+}
+
+.star-size-1{
+  font-size: 2.5rem;
+}
+
+.star-size-2{
+  font-size:3.0rem;
+}
+
+.star-size-3{
+  font-size:3.5rem;
+}
+
+.star-size-4{
+  font-size:4.0rem;
+}
+
+.star-size-5{
+  font-size:4.5rem;
+}
+
+.star-rating .fa-star{
+  color:gold;
+}
+
+.star {
+  line-height:32px;
+  color: #b0c4de;
+}
+.filled {
+  color: gold;
+}
+.bad {
+  color: #deb0b0;
+}
+.filled.bad {
+  color: #ff1e1e;
+}
+
+.custom-spinner{
+  color: #e6407d;
+  width: 5rem;
+  height: 5rem;
+  margin-top: 250px;
+}

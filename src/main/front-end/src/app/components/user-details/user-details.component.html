@@ -1,0 +1,314 @@
+
+<div class="text-center" *ngIf="!isReadyToDisplay">
+  <div class="spinner-border custom-spinner" role="status"></div>
+</div>
+
+<div class="container" *ngIf="isReadyToDisplay">
+
+  <div class="col-sm-12">
+
+    <div class="container">
+
+      <div class="row my-2">
+
+        <div class="col-lg-3 text-center shadow col-background">
+
+          <br>
+
+          <div class="text-center" *ngIf="!croppedImage">
+            <div class="spinner-border custom-spinner" role="status"></div>
+          </div>
+
+          <image-cropper *ngIf="imageChangedEvent"
+                         [imageChangedEvent]="imageChangedEvent"
+                         [maintainAspectRatio]="true"
+                         [aspectRatio]="1 / 1"
+                         [resizeToWidth]="256"
+                         [format]="png"
+                         (imageCropped)="imageCropped($event)"
+                         (loadImageFailed)="loadImageFailed()"
+          ></image-cropper>
+
+          <!--<img [src]="croppedImage" />-->
+
+          <img *ngIf="personalDetails.photo" src="data:image/png;base64,{{personalDetails.photo}}" class="avatar"  alt="avatar">
+          <br><br>
+          <h6 class="mt-2">{{user.firstName}}, {{personalDetails.age}} years old</h6>
+
+          <br>
+
+          <div *ngIf="allowAccess">
+
+            <label for="File" class=" col-form-label form-control-label">
+              <input type="file" id="File" class="custom-file-input" (change)="onAvatarSelected($event)">
+              <span class="custom-file-control btn btn-primary">Change avatar</span>
+            </label>
+            <div *ngIf="avatarUploadProgress">
+              Upload progress: {{ avatarUploadProgress }}
+              <mat-progress-bar mode="determinate" [value]="avatarUploadProgress"></mat-progress-bar>
+            </div>
+            <div class="alert alert-danger" *ngIf="avatarErrorMessage">
+              {{ avatarErrorMessage }}
+            </div>
+            <button type="button" class="btn btn-success" [disabled]="!croppedImage" (click)="onUpload()">Upload</button>
+
+            <h3>Rate</h3>
+            <hr>
+            <h1>{{personalDetails.rating | number: '1.1-1'}}</h1>
+
+          </div>
+
+          <div *ngIf="!allowAccess">
+            <h3>Rate</h3>
+            <hr>
+            <h1>{{personalDetails.rating  | number: '1.1-1'}}</h1>
+          </div>
+
+          <div *ngIf="isLogged && !isVoted && !allowAccess">
+            <ngb-rating [(rate)]="currentRate" max="6" >
+              <ng-template let-fill="fill" let-index="index" >
+                  <span class="star" [class.filled]="fill === 100"
+                        [class.star-size-0]="index == 0" [class.star-size-1]="index == 1" [class.star-size-2]="index == 2" [class.star-size-3]="index == 3"
+                        [class.star-size-4]="index == 4" [class.star-size-5]="index == 5">&#9733;</span>
+              </ng-template>
+            </ngb-rating>
+            <hr>
+            <button type="button" class="btn btn-success" (click)="onVote(vote)">Vote</button>
+            <pre class="text-right">Rate: <b> {{vote.value}} </b></pre>
+          </div>
+
+          <button *ngIf="!allowAccess" class="btn btn-primary" (click)="privateChat(user.username)">Chat</button>
+          <br><br>
+
+        </div><!-- end of col-lg-3 -->
+
+        <div class="mr-4">
+          <!--gaps between-->
+        </div>
+
+        <div class="col-lg-8 shadow col-background">
+
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a href="" data-target="#messages" data-toggle="tab" class="nav-link">Messages</a>
+            </li>
+            <li class="nav-item">
+              <a href="" data-target="#gallery" data-toggle="tab" class="nav-link">Gallery</a>
+            </li>
+          </ul>
+
+          <div class="tab-content py-4">
+            <div class="tab-pane active" id="profile">
+              <h5 class="mb-3">User Profile</h5>
+              <br>
+              <div class="row">
+                <div class="col-md-6">
+                  <h6>About</h6>
+                  <hr>
+                  <p>{{appearance.about}}</p>
+                  <h6>Hobbies</h6>
+                  <hr>
+                  <p>{{appearance.hobbies}}</p>
+                </div>
+                <div class="col-md-6">
+                  <h6>Appearance</h6>
+                  <hr>
+                  <b>Eyes: </b> {{appearance.eyes}}
+                  <br>
+                  <b>Hair colour: </b> {{appearance.hairColour}}
+                  <br>
+                  <b>Height: </b> {{appearance.height}} cm
+                  <br>
+                  <b>Physique: </b> {{appearance.physique}}
+                  <br>
+                  <br>
+                  <h6>Other</h6>
+                  <hr>
+                  <b>Country: </b> {{personalDetails.country}}
+                  <br>
+                  <b>City: </b> {{personalDetails.city}}
+                  <br>
+                  <b>Occupation: </b> {{personalDetails.occupation}}
+                  <br>
+                  <b>Marital status: </b> {{personalDetails.maritalStatus}}
+                  <br>
+                  <b>Education: </b> {{personalDetails.education}}
+                  <br>
+                  <b>Religion: </b> {{personalDetails.religion}}
+
+                </div>
+
+              </div><!-- end of row -->
+
+            </div><!-- end of tab-pane -->
+
+            <div class="tab-pane" id="messages">
+              <div class="alert alert-info alert-dismissable text-center">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                This is an <strong>alert</strong>. Use this to show important messages to the user.
+              </div>
+
+              <div  *ngIf="comments">
+
+                <div class="col-md-12" *ngFor="let comment of comments">
+                  <div class="card mb-3 shadow-sm" style="max-width:800px; max-height: 200px">
+                    <div class="row no-gutters">
+                      <div class="col-md-2 avatar">
+                        <img src="data:image/png;base64,{{comment.avatar}}" class="mx-auto img-fluid img-circle d-block shadow img-radius" alt="avatar">
+                        <p  class="text-center"><small><b>{{comment.author}}</b></small></p>
+                      </div>
+                      <div class="col-md-10">
+                        <div class="card-body">
+                          <p class="card-text"><strong *ngIf="postId != comment.id">{{comment.content}}</strong></p>
+
+                          <div *ngIf="postId == comment.id">
+                            <form name="form-signin" (ngSubmit)="editComment(comment)" #form="ngForm">
+
+                              <mat-form-field class="edit-input">
+                                <mat-label>Edit post</mat-label>
+                                <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="3" [(ngModel)]="comment.content" name="content"></textarea>
+                                <hr>
+                                <button class="btn btn-pink-edit text-center">Edit</button>
+                              </mat-form-field>
+
+                            </form>
+                          </div>
+
+                          <hr>
+                          <p>
+                            <small class="text-muted">{{ comment.postDate | date : 'yyyy/MMMM/dd, HH:mm:ss' }}</small>
+                            <span *ngIf="postId != comment.id && comment.author == usernameFromToken" class="card-text">
+                              <a class="btn-edit-comm" (click)="editPost(comment.id)" ><mat-icon class="fa fa-edit">edit</mat-icon ></a>
+                              <a class="btn-delete-comm" (click)="deleteComment(comment.id)" ><mat-icon class="fa fa-trash">delete</mat-icon ></a>
+                            </span>
+                          </p>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <hr>
+
+              <div  *ngIf="!allowAccess">
+
+                <form name="form-signin" (ngSubmit)="addComment(form)" #form="ngForm">
+
+                  <mat-form-field class="edit-input">
+                    <mat-label>Post new comment</mat-label>
+                    <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="4" [(ngModel)]="comment.content" name="content"></textarea>
+                  </mat-form-field>
+
+                  <!--<label for="PostNewComment">Post new comment</label>
+                  <textarea class="form-control" id="PostNewComment" rows="3" [(ngModel)]="comment.content" name="content" placeholder="Type a comment" [maxLength]="250"></textarea>-->
+
+                  <button class="btn btn-pink">Post</button>
+
+                </form>
+
+              </div>
+
+            </div>
+
+            <div class="tab-pane" id="gallery">
+
+              <!--Carousel Wrapper-->
+              <div id="carousel-example-2" class="carousel slide carousel-fade z-depth-1-half shadow" data-interval="false" data-ride="carousel" *ngIf="images">
+                <!--Indicators-->
+                <ol class="carousel-indicators">
+                  <!--<li data-target="#carousel-example-2" *ngFor="let image of images;index as i;first as isfirst" data-slide-to="i" [ngClass]="{'active':isfirst}"></li>-->
+                  <!--<li data-target="#carousel-example-2" data-slide-to="1"></li>
+                  <li data-target="#carousel-example-2" data-slide-to="2"></li>-->
+                </ol>
+                <!--/.Indicators-->
+                <!--Slides-->
+
+                <div class="carousel-inner" style="background-color: white" role="listbox">
+
+                  <div class="carousel-item" *ngFor="let image of images let i = index" [ngClass]="{'active' : i == 0}">
+                    <div class="view">
+                      <img class="d-block w-100" src="data:image/png;base64,{{image.photo}}" alt="{{image.title}}">
+                      <!--<div class="mask rgba-black-light"></div>-->
+                    </div>
+                    <div class="carousel-caption">
+                      <h3 class="h3-responsive" *ngIf="photoId != image.id">{{image.title}}</h3>
+
+                      <div *ngIf="photoId == image.id">
+                        <form name="form-signin" (ngSubmit)="editTitle(image)" #form="ngForm">
+
+                          <mat-form-field class="edit-input">
+                            <mat-label>Edit title</mat-label>
+                            <input type="text" matInput [(ngModel)]="image.title" name="title" required>
+                            <hr>
+                            <button class="btn btn-pink-edit text-center">Edit</button>
+                          </mat-form-field>
+
+                        </form>
+                      </div>
+
+                    </div>
+                    <a class="btn-edit-photo" (click)="editPhoto(image.id)" ><mat-icon class="fa fa-edit">edit title</mat-icon ></a>
+                    <a class="btn-delete-photo" (click)="deletePhoto(image.id)" ><mat-icon class="fa fa-trash">delete</mat-icon ></a>
+                  </div>
+
+                </div>
+                <!--/.Slides-->
+                <!--Controls-->
+                <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+                <!--/.Controls-->
+              </div>
+              <!--/.Carousel Wrapper-->
+
+              <div *ngIf="allowAccess">
+
+                  <mat-form-field style="margin-left: 250px">
+                    <mat-label>Add title</mat-label>
+                    <input type="text" matInput [(ngModel)]="title" name="title">
+                  </mat-form-field>
+
+                <label for="Photo" class="col-form-label form-control-label" style="margin-left: 270px">
+                  <!--<input type="file" id="Photo" class="custom-file-input" (change)="onFileSelected($event)">-->
+                  <button class="btn btn-primary" id="Photo" (click)="uploadFile()">Add images</button>
+                  <!--<span class="custom-file-control btn btn-primary">Add images</span>-->
+                </label>
+
+                <div style="margin-left: 8px">
+                  <div *ngIf="photoUploadProgress">
+                    Upload progress: {{ photoUploadProgress }}
+                    <mat-progress-bar mode="determinate" [value]="photoUploadProgress"></mat-progress-bar>
+                  </div>
+                  <div class="alert alert-danger text-center" *ngIf="photoErrorMessage">
+                    {{ photoErrorMessage }}
+                  </div>
+                </div>
+
+                  <button type="button" class="btn btn-success" style="margin-left: 293px" [disabled]="!image" (click)="onGalleryUpload()">Upload</button>
+
+              </div>
+
+            </div>
+
+          </div><!-- end of tab-content -->
+
+        </div><!-- end of col-lg-8 -->
+
+      </div><!-- end of row -->
+
+    </div><!-- end of container -->
+
+  </div><!-- end of col-sm-12 -->
+
+</div><!-- end of container main -->
